@@ -82,8 +82,9 @@ if (empty($messages)) {
 // 3. wykonaj zadanie jeśli wszystko w porządku
 
 if (empty ($messages)) { // gdy brak błędów
-
-    $result = ($amount_of_credit + ($amount_of_credit * $interest_value)) / $credit_years;
+    $num_of_months = $credit_years * 12;
+    $total_credit_value = $amount_of_credit * ($interest_value + 100) / 100;
+    $result = $total_credit_value / $num_of_months;
 }
 
 // 4. Wywołanie widoku z przekazaniem zmiennych

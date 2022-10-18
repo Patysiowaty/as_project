@@ -11,13 +11,15 @@
     <form action="<?php print(_APP_URL); ?>/app/calc.php" method="post">
         <h3 style="margin: auto; text-align: center">Credit's calculator</h3>
         <label style="margin-left: 10px;" for="amount_of_credit">Amount of credit: </label>
-        <input id="amount_of_credit" type="number" name="amount_of_credit" min="1" style="margin-left: 5px"
+        <input id="amount_of_credit" type="number" name="amount_of_credit" min="1" style="margin-left: 5px; width: 80px"
                value="<?php isset($amount_of_credit) ? print($amount_of_credit) : ""; ?>"/> [PLN]<br/>
         <label for="credit_years" style="margin-left: 10px;">Years of credit: </label>
-        <input id="credit_years" type="number" name="credit_years" min="0" max="40" style="margin-left: 26px;"
+        <input id="credit_years" type="number" name="credit_years" min="0" max="40"
+               style="margin-left: 26px; width: 80px"
                value="<?php isset($credit_years) ? print($credit_years) : "" ?>"/><br/>
         <label for="interest_value" style="margin-left: 10px;">Interest: </label>
-        <input id="interest_value" type="number" name="interest_value" min="0" max="200" style="margin-left: 72px;"
+        <input id="interest_value" type="number" name="interest_value" min="0" max="200"
+               style="margin-left: 72px; width: 80px"
                value="<?php isset($interest_value) ? print($interest_value) : ""; ?>"/> %<br/>
         <input type="submit" style="width: 50px;display: block; margin: 15px auto auto;" value="Oblicz"/>
     </form>
