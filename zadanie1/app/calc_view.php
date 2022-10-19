@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div class="calculator" style="background-color: aquamarine;width: 380px;height: 150px">
+<div class="calculator" style="background-color: aquamarine;width: 380px;height: 150px;">
     <form action="<?php print(_APP_URL); ?>/app/calc.php" method="post">
         <h3 style="margin: auto; text-align: center">Credit's calculator</h3>
         <label style="margin-left: 10px;" for="amount_of_credit">Amount of credit: </label>
@@ -26,7 +26,6 @@
 </div>
 
 <?php
-//wyświeltenie listy błędów, jeśli istnieją
 if (isset($messages)) {
     if (count($messages) > 0) {
         echo '<ol style="margin: 20px; padding: 10px 10px 10px 30px; border-radius: 5px; background-color: #f88; width:300px;">';
