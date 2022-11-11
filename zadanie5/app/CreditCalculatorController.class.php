@@ -36,9 +36,10 @@ class CreditCalculatorController
             if ($this->messages->hasErrors()) $variables ['messages'] = $this->messages->getErrors();
             if ($this->messages->hasInfos()) $variables ['infos'] = $this->messages->getInfos();
 
-            echo $twig->render('calc.html', $variables);
         } catch (Twig_Error_Loader $e) {
-            echo $e->getMessage();
+            $this->messages->pushError($e->getMessage());
+        } finally {
+            echo $twig->render('calc.html', $variables);
         }
     }
 

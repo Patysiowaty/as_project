@@ -1,0 +1,66 @@
+{extends file=$conf->getRootPath()|cat:"/templates/main.html"}
+
+{block name=footer}{/block}
+
+{block name=content}
+
+<h2 class="content-head is-center">Credit Calculator</h2>
+
+<div class="pure-g">
+    <div class="l-box-lrg pure-u-1 pure-u-med-2-5">
+        <form class="pure-form pure-form-stacked" action="{$conf->getActionUrl()}compute" method="post">
+            <fieldset>
+                <label for="amount_of_credit">Amount of credit</label>
+                <input id="amount_of_credit" type="number" placeholder="Amount of credit" name="amount_of_credit"
+                       value="{amountCredit}" min="1" max="10000000">
+
+                <label for="credit_years">Years of credits</label>
+                <input id="credit_years" type="number" placeholder="Credit's year" name="credit_years"
+                       value="{creditYear}" min="1" max="40">
+
+                <label for="interest_value">Interest's value</label>
+                <input id="interest_value" type="number" placeholder="Interest value" name="interest_value" min="0"
+                       value="{interestValue}" max="200">
+
+                <button type="submit" class="pure-button">Calculate</button>
+            </fieldset>
+        </form>
+    </div>
+
+    <div class="l-box-lrg pure-u-1 pure-u-med-3-5">
+
+        {* wyświeltenie listy błędów, jeśli istnieją *}
+        {if $msgs->hasErrors()}
+        <h4>Errors: </h4>
+        <ol class="err">
+            {foreach $msgs->getErrors() as $err}
+            {strip}
+            <li>{$err}</li>
+            {/strip}
+            {/foreach}
+        </ol>
+        {/if}
+
+        {* wyświeltenie listy informacji, jeśli istnieją *}
+        {if $msgs->hasInfos()}
+        <h4>Infos: </h4>
+        <ol class="inf">
+            {foreach $msgs->getInfos() as $inf}
+            {strip}
+            <li>{$inf}</li>
+            {/strip}
+            {/foreach}
+        </ol>
+        {/if}
+
+        {if $res > -1}
+        <h4>Result</h4>
+        <p class="res">
+            {$res}
+        </p>
+        {/if}
+
+    </div>
+</div>
+
+{/block}
