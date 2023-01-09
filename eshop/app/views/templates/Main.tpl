@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>E-Shop</title> <!-- TODO: wkleic nazwe strony -->
+    <title>E-Shop</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -50,7 +50,7 @@
                     data.append("enable", $(this).is(':checked'));
                     data.append("id", $(this).attr("value"));
                     req.send(data);
-                } else if (id === "CustomerCheck") {
+                } else if (id === "UserCheck") {
                     let data = new FormData();
                     const req = new XMLHttpRequest();
                     req.open("POST", '{/literal}{$conf->app_url}{literal}/changeRole');
@@ -103,7 +103,7 @@
 <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand text-success logo h1 align-self-center" href="{$conf->app_url}">
+        <a class="navbar-brand text-success logo h1 align-self-center" href="{$conf->app_url}/home">
             E-SHOP
         </a>
 
@@ -118,7 +118,7 @@
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{$conf->app_url}">Home</a>
+                        <a class="nav-link" href="{$conf->app_url}/home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{$conf->app_url}/about">About</a>
@@ -151,34 +151,31 @@
                             <li><a class="dropdown-item" href="{$conf->app_url}/login">Login</a></li>{/if}
                         {if !$conf->is_logged}
                             <li><a class="dropdown-item" href="{$conf->app_url}/register">Register</a></li>{/if}
-
                     </ul>
-
                 </div>
             </div>
         </div>
-
     </div>
 </nav>
 <!-- Close Header -->
 
 <!-- Modal -->
-<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="w-100 pt-1 mb-5 text-right">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="" method="get" class="modal-content modal-body border-0 p-0">
-            <div class="input-group mb-2">
-                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                <button type="submit" class="input-group-text bg-success text-light">
-                    <i class="fa fa-fw fa-search text-white"></i>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
+{*<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"*}
+{*     aria-hidden="true">*}
+{*    <div class="modal-dialog modal-lg" role="document">*}
+{*        <div class="w-100 pt-1 mb-5 text-right">*}
+{*            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>*}
+{*        </div>*}
+{*        <form action="" method="get" class="modal-content modal-body border-0 p-0">*}
+{*            <div class="input-group mb-2">*}
+{*                <input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">*}
+{*                <button type="submit" class="input-group-text bg-success text-light">*}
+{*                    <i class="fa fa-fw fa-search text-white"></i>*}
+{*                </button>*}
+{*            </div>*}
+{*        </form>*}
+{*    </div>*}
+{*</div>*}
 
 {block name=content} {/block}
 
@@ -237,7 +234,7 @@
                         <script>document.write(new Date().getFullYear());</script>
                         E-SHOP
                         | Designed by <a rel="sponsored" href="https://templatemo.com/page/1"
-                                         target="_blank">TemplateMo</a>
+                                         target="_blank">TemplateMo</a> | Edited by Patryk Kołodziejczyk
                     </p>
                 </div>
             </div>

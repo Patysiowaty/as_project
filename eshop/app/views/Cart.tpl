@@ -46,7 +46,7 @@
                                             <form action="{$conf->app_url}/doCheckout" method="post">
                                                 <button type="submit" class="btn btn-success btn-block btn-lg"
                                                         data-mdb-ripple-color="dark" name="check" value="1"
-                                                        {if count($products) == 0} disabled{/if}>Checkout
+                                                        {if $numOfItems == 0} disabled{/if}>Checkout
                                                 </button>
                                             </form>
                                         </div>

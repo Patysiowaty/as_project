@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.1.0, created on 2023-01-06 11:56:34
+/* Smarty version 4.1.0, created on 2023-01-08 13:00:37
   from '/Applications/XAMPP/xamppfiles/htdocs/eshop/app/views/templates/Main.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.1.0',
-  'unifunc' => 'content_63b7fe62525550_54261564',
+  'unifunc' => 'content_63bab0657a0d34_22644512',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '6cb727c48ed8d7556d1e32e83313a692a6c8b246' => 
     array (
       0 => '/Applications/XAMPP/xamppfiles/htdocs/eshop/app/views/templates/Main.tpl',
-      1 => 1673002587,
+      1 => 1673179235,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_63b7fe62525550_54261564 (Smarty_Internal_Template $_smarty_tpl) {
+function content_63bab0657a0d34_22644512 (Smarty_Internal_Template $_smarty_tpl) {
 $_smarty_tpl->_loadInheritance();
 $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 ?>
@@ -56,13 +56,9 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
     https://templatemo.com/tm-559-zay-shop
 
     -->
-    <?php echo '<script'; ?>
+        <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
-/js/jquery-1.11.0.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
-/js/jquery-migrate-1.2.1.min.js"><?php echo '</script'; ?>
+/js/jquery-3.6.3.min.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
@@ -75,6 +71,54 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
     <?php echo '<script'; ?>
  src="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
 /js/custom.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ type="text/javascript">
+        
+        $(document).ready(function (e) {
+            $('input:checkbox').change(function () {
+                const id = $(this).attr("id");
+                if (id === "AdminCheck") {
+                    let data = new FormData();
+                    const req = new XMLHttpRequest();
+                    req.open("POST", '<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/changeRole');
+                    data.append("role", "1");
+                    data.append("enable", $(this).is(':checked'));
+                    data.append("id", $(this).attr("value"));
+                    req.send(data);
+                } else if (id === "EmployeeCheck") {
+                    let data = new FormData();
+                    const req = new XMLHttpRequest();
+                    req.open("POST", '<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/changeRole');
+                    data.append("role", "2");
+                    data.append("enable", $(this).is(':checked'));
+                    data.append("id", $(this).attr("value"));
+                    req.send(data);
+                } else if (id === "CustomerCheck") {
+                    let data = new FormData();
+                    const req = new XMLHttpRequest();
+                    req.open("POST", '<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/changeRole');
+                    data.append("role", "3");
+                    data.append("enable", $(this).is(':checked'));
+                    data.append("id", $(this).attr("value"));
+                    req.send(data);
+                } else if (id === "ActiveCheck") {
+                    let data = new FormData();
+                    const req = new XMLHttpRequest();
+                    req.open("POST", '<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/changeActivity');
+                    data.append("active", $(this).is(':checked'));
+                    data.append("id", $(this).attr("value"));
+                    req.send(data);
+                }
+            });
+        });
+
+        
+    <?php echo '</script'; ?>
 >
 </head>
 
@@ -138,26 +182,38 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
                 </ul>
             </div>
             <div class="navbar align-self-center d-flex">
-                <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                        <div class="input-group-text">
-                            <i class="fa fa-fw fa-search"></i>
-                        </div>
-                    </div>
-                </div>
-                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal"
-                   data-bs-target="#templatemo_search">
-                    <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                </a>
-                <a class="nav-icon position-relative text-decoration-none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+                <?php if ($_smarty_tpl->tpl_vars['conf']->value->is_logged) {?>
+                    <a class="nav-icon position-relative text-decoration-none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
 /cart">
-                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                                    </a>
-                <a class="nav-icon position-relative text-decoration-none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
-/account">
-                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
-                                    </a>
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                    </a>
+                <?php }?>
+                <div class="dropdown">
+                    <button class="btn nav-icon position-relative text-decoration-none dropdown-toggle" type="button"
+                            id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="accountDropdown">
+                        <?php if ($_smarty_tpl->tpl_vars['conf']->value->is_logged) {?>
+                            <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/account">Account</a></li><?php }?>
+                        <?php if ((isset($_smarty_tpl->tpl_vars['conf']->value->roles["Admin"]))) {?>
+                            <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/tools">Tools</a></li><?php }?>
+                        <?php if ($_smarty_tpl->tpl_vars['conf']->value->is_logged) {?>
+                            <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/logout">Logout</a></li><?php }?>
+                        <?php if (!$_smarty_tpl->tpl_vars['conf']->value->is_logged) {?>
+                            <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/login">Login</a></li><?php }?>
+                        <?php if (!$_smarty_tpl->tpl_vars['conf']->value->is_logged) {?>
+                            <li><a class="dropdown-item" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
+/register">Register</a></li><?php }?>
+
+                    </ul>
+
+                </div>
             </div>
         </div>
 
@@ -184,7 +240,7 @@ $_smarty_tpl->inheritance->init($_smarty_tpl, false);
 </div>
 
 <?php 
-$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_54603006563b7fe62523341_87494763', 'content');
+$_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_145193979863bab06579fff1_29733607', 'content');
 ?>
 
 
@@ -209,30 +265,6 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_54603006563b7fe625
                     </li>
                 </ul>
             </div>
-
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                    <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                    <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
-">Home</a></li>
-                    <li><a class="text-decoration-none" href="<?php echo $_smarty_tpl->tpl_vars['conf']->value->app_url;?>
-/about">About Us</a></li>
-                </ul>
-            </div>
-
         </div>
 
         <div class="row text-light mb-4">
@@ -254,14 +286,6 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_54603006563b7fe625
                                     class="fab fa-twitter fa-lg fa-fw"></i></a>
                     </li>
                 </ul>
-            </div>
-            <div class="col-auto">
-                <label class="sr-only" for="subscribeEmail">Email address</label>
-                <div class="input-group mb-2">
-                    <input type="text" class="form-control bg-dark border-light" id="subscribeEmail"
-                           placeholder="Email address">
-                    <div class="input-group-text btn-success text-light">Subscribe</div>
-                </div>
             </div>
         </div>
     </div>
@@ -289,12 +313,12 @@ $_smarty_tpl->inheritance->instanceBlock($_smarty_tpl, 'Block_54603006563b7fe625
 
 </html><?php }
 /* {block 'content'} */
-class Block_54603006563b7fe62523341_87494763 extends Smarty_Internal_Block
+class Block_145193979863bab06579fff1_29733607 extends Smarty_Internal_Block
 {
 public $subBlocks = array (
   'content' => 
   array (
-    0 => 'Block_54603006563b7fe62523341_87494763',
+    0 => 'Block_145193979863bab06579fff1_29733607',
   ),
 );
 public function callBlock(Smarty_Internal_Template $_smarty_tpl) {

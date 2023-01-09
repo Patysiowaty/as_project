@@ -81,7 +81,7 @@
                                 <!--Slides-->
                                 <div class="carousel-inner product-links-wap" role="listbox">
                                     {assign var="i" value=0 nocache}
-                                    {assign var="active" value="1" nocache}
+                                    {assign var="active" value=1 nocache}
                                     {foreach $brandsLogo as $brand}
                                         {if $i == 0}
                                             <div class="carousel-item {if $active == 1} active{/if}">
@@ -91,7 +91,7 @@
                                         {assign var="i" value=$i+1 nocache}
                                         {assign var="brandsSize" value=$brandsSize-1 nocache}
 
-                                        {if $i > 3 && $brandsSize > 3 || $brandsSize == 0}
+                                        {if $i > 3 || $brandsSize == 0}
                                             {assign var="i" value=0 nocache}
                                             {assign var="active" value=0}
                                             </div>

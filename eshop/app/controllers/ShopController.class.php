@@ -13,10 +13,15 @@ use SmartyException;
 use app\models\Product;
 use app\models\FilterManager;
 
+enum UploadingFile
+{
+    case Product;
+    case Brand;
+}
+
 class ShopController
 {
     private array $products;
-
     private FilterManager $filterManager;
 
     public function __construct()
@@ -39,17 +44,6 @@ class ShopController
         App::getSmarty()->display("Shop.tpl");
     }
 
-    public function action_addToCart(): void
-    {
-        $validator = new Validator();
-        $productId = $validator->validateFromRequest("id", [
-            'required' => true,
-            'required_message' => 'Nie podano przedmiotu!',
-            'int' => true
-        ]);
-        App::getRouter()->redirectTo("shop");
-    }
-
     public function action_setFilter(): void
     {
         $validator = new Validator();
@@ -62,8 +56,19 @@ class ShopController
             'required_message' => 'Nie podano nazwy filtra!'
         ]);
 
-        $this->filterManager->activateFilter($filterType, $filterType);
-        App::getRouter()->redirectTo("shop");
+        $this->filterManager->activateFilter($filterType, $filterName);
+
+        $genders = $this->filterManager->getGenders();
+        $categories = $this->filterManager->getCategories();
+        $brands = $this->filterManager->getBrands();
+        for ($i = count($this->products) - 1; $i >= 0; $i--) {
+            $product = $this->products[$i];
+            if (!$genders[$product->getGender()] && !$categories[$product->getCategory()] && !$brands[$product->getBrand()]) {
+                unset($this->products[$i]);
+            }
+        }
+
+        $this->action_shop();
     }
 
     public function action_addBrand(): void
@@ -71,7 +76,7 @@ class ShopController
         RoleUtils::requireRole("Employee");
         $validator = new Validator();
         $brandName = $validator->validateFromPost("name", ["required" => true, "trim" => true, "required_message" => "Musisz podac nazwe marki!"]);
-        $uploadedFile = $this->handleUploadFile();
+        $uploadedFile = $this->handleUploadFile(UploadingFile::Brand);
 
         if (!App::getMessages()->isEmpty())
             App::getRouter()->forwardTo("shop");
@@ -82,7 +87,7 @@ class ShopController
             App::getRouter()->redirectTo("shop");
         }
 
-        App::getDB()->insert("Brand", ["name" => $brandName, "logo" => "img/" . $uploadedFile]);
+        App::getDB()->insert("Brand", ["name" => $brandName, "logo" => $uploadedFile]);
 
         App::getRouter()->redirectTo('shop');
     }
@@ -99,7 +104,7 @@ class ShopController
         $brand = $validator->validateFromPost("brand", ["required" => true, "trim" => true, "required_message" => "Musisz wybrac marke!"]);
         $gender = $validator->validateFromPost("gender", ["required" => true, "trim" => true, "required_message" => "Musisz wybrac plec!"]);
 
-        $file = $this->handleUploadFile();
+        $file = $this->handleUploadFile(UploadingFile::Product);
 
         if (!App::getMessages()->isEmpty())
             App::getRouter()->forwardTo("shop");
@@ -116,13 +121,14 @@ class ShopController
         $brandId = intval($brandId[0]["id"]);
         $genderId = intval($genderId[0]["id"]);
 
-        App::getDB()->insert("Product", ["name" => $name, "price" => $price, "icon" => "img/" . $file,
+        App::getDB()->insert("Product", ["name" => $name, "price" => $price, "icon" => $file,
             "category_id" => $catId, "gender_id" => $genderId, "brand_id" => $brandId]);
 
         App::getRouter()->redirectTo("shop");
     }
 
-    private function loadProducts(): void
+    private
+    function loadProducts(): void
     {
         $result = App::getDB()->select("Product", [
             "[><]Category" => ["Product.category_id" => "id"],
@@ -143,8 +149,12 @@ class ShopController
         }
     }
 
-    private function handleUploadFile(): string
+    private
+    function handleUploadFile(UploadingFile $file): string
     {
+        $product_path = App::getConf()->root_path . "/public/img/products/";
+        $logos_path = App::getConf()->root_path . "/public/img/logos/";
+
         $image = $_FILES["icon"];
         if (!isset($image)) {
             Utils::addErrorMessage("Nie wskazano zadnego pliku!");
@@ -156,7 +166,14 @@ class ShopController
 
         $newName = hash("sha256", $imageName);
         $newName = $newName . "." . $ext;
-        move_uploaded_file($imageName, App::getConf()->root_path . "/public/img/" . $newName);
+
+        $destination = $file == UploadingFile::Product ? $product_path : $logos_path;
+
+        $result = move_uploaded_file($imageName, $destination . $newName);
+
+        if (!$result)
+            Utils::addErrorMessage("Nie udało się wgrać grafiki, spróbuj ponownie!");
+
         return $newName;
     }
 

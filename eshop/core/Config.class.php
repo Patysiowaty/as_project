@@ -24,4 +24,6 @@ class Config extends \ArrayObject
     public $db_prefix;
     public $db_option;
     public bool $is_logged;
+    public string $product_thumbs_path;
+    public string $brand_logo_path;
 }

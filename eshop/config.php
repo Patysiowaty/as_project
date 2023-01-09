@@ -17,4 +17,4 @@ $conf->db_charset = 'utf8';
 # ---- Database config - optional values
 $conf->db_port = '3306';
 #$conf->db_prefix = '';
-$conf->db_option = [ PDO::ATTR_CASE => PDO::CASE_NATURAL, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION ];
+$conf->db_option = [PDO::ATTR_CASE => PDO::CASE_NATURAL, PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];

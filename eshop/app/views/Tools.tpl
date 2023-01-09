@@ -1,14 +1,13 @@
 {extends file="Main.tpl"}
 {block name=content}
     <div class="container py-5">
-        {*        <div class="input-group"*}
         <form class="input-group" action="{$conf->app_url}/search" method="post">
             <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
                    aria-describedby="search-addon" name="email"/>
             <button type="submit" class="btn btn-outline-primary" name="pls">search</button>
         </form>
-        {if !$msg->isEmpty}
-            {include file="Messages.tpl"}
+        {if !$msgs->isEmpty()}
+            {include file="templates/Messages.tpl"}
         {/if}
         <table class="table table-striped">
             <thead>

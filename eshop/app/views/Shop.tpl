@@ -14,7 +14,6 @@
                             <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul class="collapse show list-unstyled pl-3">
-                            {*                            <li><a class="text-decoration-none" href="#">All</a></li>*}
                             {foreach $genders as $gender => $isSelected}
                                 <li>
                                     <a class="{if $isSelected} text-decoration-underline {else} text-decoration-none{/if}"
@@ -28,7 +27,6 @@
                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul id="collapseTwo" class="collapse list-unstyled pl-3">
-                            {*                            <li><a class="text-decoration-none" href="#">All</a></li>*}
                             {foreach $brands as $brand => $isSelected}
                                 <li>
                                     <a class="{if $isSelected} text-decoration-underline {else} text-decoration-none{/if}"
@@ -42,7 +40,6 @@
                             <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
                         </a>
                         <ul id="collapseThree" class="collapse list-unstyled pl-3">
-                            {*                            <li><a class="text-decoration-none" href="#">All</a></li>*}
                             {foreach $categories as $category => $isSelected}
                                 <li>
                                     <a class="{if $isSelected} text-decoration-underline {else} text-decoration-none{/if}"
